@@ -8,17 +8,28 @@ const bcrypt = require('bcrypt');
 const flash = require('express-flash');
 const session = require('express-session');
 const methodOverride = require('method-override');
+const mongoose = require('mongoose');
+const User = require('./user.model');
 
 const initializePassport = require('./passport-config');
 const passport = require('passport');
-initializePassport(
-    passport, 
-    email => users.find(user => user.email === email), 
-    id => users.find(user => user.id === id)
-);
+initializePassport(passport);
 
-// Test data
-const users = [];
+// Connecting to MongoDB Atlas
+const password = process.env.SECRET_KEY;
+const connectionString = `mongodb+srv://ethanvillalobos8:${password}@hub-cluster.05pds6x.mongodb.net/resource-hub?retryWrites=true&w=majority`;
+
+// Connecting to MongoDB
+mongoose.connect(connectionString, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+})
+.then(() => console.log('Connected to MongoDB'))
+.catch(err => console.error('Could not connect to MongoDB:', err));
+
+mongoose.connection.on('connected', () => {
+    console.log('Mongoose connected to', mongoose.connection.db.databaseName);
+});
 
 // View engine
 app.set('view engine', 'ejs');
@@ -62,22 +73,16 @@ app.get('/register', checkNotAuthenticated, (req, res) => {
 app.post('/register', checkNotAuthenticated, async (req, res) => {
     try {
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
-        const user = {
-            id: Date.now().toString(),
+        const user = new User({
             username: req.body.username,
             email: req.body.email,
             password: hashedPassword
-        };
-        users.push(user);
+        });
+        await user.save();
         res.redirect('/login');
     } catch (error) {
         res.render('register.ejs', { error: 'Error during registration. Please try again.' });
     }
-    console.log(users);
-});
-
-app.get('/users', (req, res) => {
-    res.json(users);
 });
 
 app.delete('/logout', (req, res) => {
@@ -86,11 +91,9 @@ app.delete('/logout', (req, res) => {
             console.error('Error occurred during logout:', err);
             return res.status(500).send('Internal Server Error');
         }
-
         res.redirect('/login');
     });
 });
-
 
 function checkAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {

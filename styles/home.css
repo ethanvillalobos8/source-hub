@@ -35,7 +35,7 @@ body {
     border-radius: 5px;
     transition: all 0.3s ease;
     text-align: center;
-    width: 30%;
+    width: 20%;
     box-sizing: border-box;
 }
 
@@ -59,6 +59,13 @@ body {
     bottom: 70px;
     left: 50%;
     transform: translateX(-50%);
+}
+
+#addLinks {
+    font-size: medium;
+    color: #b3b3b3;
+    position: fixed;
+    bottom: 20px;
 }
 
 #popup {

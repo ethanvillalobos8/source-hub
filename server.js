@@ -115,6 +115,44 @@ app.delete('/logout', (req, res) => {
     });
 });
 
+// POST request to add a link
+app.post('/add-link', checkAuthenticated, async (req, res) => {
+    try {
+        const { linkName, linkUrl } = req.body;
+        const user = await User.findById(req.user.id);
+        user.links.push({ name: linkName, url: linkUrl });
+        await user.save();
+        res.redirect('/');
+    } catch (error) {
+        console.error('Error during link addition:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+// GET request to retrieve links
+app.get('/get-links', checkAuthenticated, async (req, res) => {
+    try {
+        const user = await User.findById(req.user.id);
+        res.json(user.links);
+    } catch (error) {
+        console.error('Error during link retrieval:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+// DELETE request to remove a link
+app.delete('/delete-link/:linkId', checkAuthenticated, async (req, res) => {
+    try {
+        const user = await User.findById(req.user.id);
+        user.links.pull({ _id: req.params.linkId });
+        await user.save();
+        res.status(200).send('Link deleted');
+    } catch (error) {
+        console.error('Error during link deletion:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
 function checkAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
         return next();

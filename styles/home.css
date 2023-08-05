@@ -1,37 +1,119 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+    color: #333;
+    background-color: #f9f9f9;
     margin: 0;
     padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
 }
 
-h1 {
+.greeting {
     text-align: center;
-    margin-top: 30px;
+    padding: 50px 0;
+    font-size: 2em;
     color: #333;
 }
 
-form {
-    max-width: 400px;
-    margin: 0 auto;
-    background-color: #f0f0f0;
-    padding: 30px;
-    border-radius: 8px;
-    text-align: center;
+#links {
+    display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-    align-items: center;
+    margin: 50px 0;
+    width: 80%;
 }
 
-button[type="submit"] {
-    padding: 12px 30px;
-    border: none;
-    background-color: #007bff;
+#links a {
+    text-decoration: none;
+    color: #007AFF;
+    margin: 5px;
+    font-size: 1.2em;
+    border: 1px solid #007AFF;
+    padding: 15px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    text-align: center;
+    width: 30%;
+    box-sizing: border-box;
+}
+
+#links a:hover {
+    background-color: #007AFF;
     color: #fff;
-    font-size: 16px;
-    border-radius: 4px;
-    cursor: pointer;
 }
 
-button[type="submit"]:hover {
-    background-color: #0056b3;
+#addButton {
+    display: block;
+    width: 35px;
+    height: 35px;
+    background-color: #37416a;
+    color: #fff;
+    border: none;
+    border-radius: 25%;
+    font-size: 1.75em;
+    text-align: center;
+    cursor: pointer;
+    position: fixed;
+    bottom: 70px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 500px;
+}
+
+#popup.hidden {
+    display: none;
+}
+
+#linkForm {
+    display: flex;
+    flex-direction: column;
+}
+
+#linkForm input[type="text"] {
+    margin: 10px 0;
+    padding: 10px;
+    font-size: 1em;
+}
+
+#linkForm input[type="submit"] {
+    margin: 20px 0;
+    padding: 10px;
+    background-color: #007AFF;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#linkForm input[type="submit"]:hover {
+    background-color: #0051c7;
+}
+
+form[action="/logout?_method=delete"] {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+form[action="/logout?_method=delete"] button {
+    font-weight: 700;
+    background: none;
+    color: #be1616;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
 }

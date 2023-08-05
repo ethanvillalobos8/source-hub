@@ -2,6 +2,8 @@ if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config();
 }
 
+const password = process.env.SECRET_KEY;
+
 const express = require('express');
 const app = express();
 const bcrypt = require('bcrypt');
@@ -11,12 +13,26 @@ const methodOverride = require('method-override');
 const mongoose = require('mongoose');
 const User = require('./user.model');
 
+const MongoDBStore = require('connect-mongodb-session')(session);
+
+const store = new MongoDBStore({
+    uri: `mongodb+srv://ethanvillalobos8:${password}@hub-cluster.05pds6x.mongodb.net/resource-hub?retryWrites=true&w=majority`,
+    collection: 'sessions'
+});
+
+store.on('error', function(error) {
+    console.log(error);
+});
+
 const initializePassport = require('./passport-config');
 const passport = require('passport');
-initializePassport(passport);
+initializePassport(
+    passport,
+    async email => await User.findOne({ email: email }),
+    async id => await User.findById(id)
+)
 
 // Connecting to MongoDB Atlas
-const password = process.env.SECRET_KEY;
 const connectionString = `mongodb+srv://ethanvillalobos8:${password}@hub-cluster.05pds6x.mongodb.net/resource-hub?retryWrites=true&w=majority`;
 
 // Connecting to MongoDB
@@ -32,20 +48,24 @@ mongoose.connection.on('connected', () => {
 });
 
 // View engine
-app.set('view engine', 'ejs');
-app.use(express.urlencoded({ extended: false }));
-app.use(flash());
+app.set('view-engine', 'ejs')
+app.use(express.urlencoded({ extended: false }))
+app.use(flash())
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
-    saveUninitialized: false
-}));
-app.use(passport.initialize());
-app.use(passport.session());
-app.use(methodOverride('_method'));
+    saveUninitialized: false,
+    store: store  // Use the MongoDB store for sessions
+}))
+app.use(passport.initialize())
+app.use(passport.session())
+app.use(methodOverride('_method'))
 
 // Middleware
 app.use(express.json());
+
+// Serve static files
+app.use(express.static('source'));
 
 // Stylesheets
 app.use(express.static('styles'));

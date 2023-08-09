@@ -2,6 +2,11 @@
 
 Source Hub is a web application for storing and managing links. It is built with Node.js, Express, MongoDB, and Passport.js for authentication. The application has been deployed on Heroku and can be accessed at [https://source-hub-430f992e237a.herokuapp.com/login](https://source-hub-430f992e237a.herokuapp.com/login).
 
+To use the application, either create an account or use the test credentials below:
+
+Email: user@test.com
+Password: test123
+
 ## Features
 
 - User registration and login with authentication

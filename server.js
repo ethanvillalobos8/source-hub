@@ -62,6 +62,7 @@ app.use(passport.session())
 app.use(methodOverride('_method'))
 
 // Middleware
+app.use(express.static('public'));
 app.use(express.json());
 
 // Serve static files

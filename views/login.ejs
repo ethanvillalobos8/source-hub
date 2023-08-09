@@ -1,20 +1,41 @@
-<link rel="stylesheet" href="/login.css">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="/login.css">
+</head>
+<body>
+    <nav>
+        <span class="brand">SourceHub</span>
+        <button class="signup-btn">Sign Up</button>
+    </nav>
 
-<!-- Login HTML -->
-<h1>Login</h1>
-<% if (messages.error) { %>
-    <p><%= messages.error %></p>
-<% } %>
-<form action="/login" method="post">
-    <div>
-        <label>Email:</label>
-        <input type="email" name="email" id="email" placeholder="Enter Email" required>
-    </div>
-    <div>
-        <label>Password:</label>
-        <input type="password" name="password" id="password" placeholder="Enter Password" required>
-    </div>
-
-    <input type="submit" value="Login">
-</form>
-<a href="/register">Register</a>
+    <main>
+        <section class="login-box">
+            <div class="login-message">
+                <h1>Agent Login</h1>
+                <p>Hi, enter your credentials to login to your account.</p>
+            </div>
+            <% if (messages.error) { %>
+                <p class="error-message"><%= messages.error %></p>
+            <% } %>
+            <form action="/login" method="post">
+                <div>
+                    <input type="email" name="email" id="email" placeholder="Enter Email" required>
+                </div>
+                <div>
+                    <input type="password" name="password" id="password" placeholder="Enter Password" required>
+                </div>
+                <input type="submit" value="Login">
+                <p style="font-size: small; padding-top: 15px;">Don't have an account? <a href="/register" style="font-weight: bold;">Register Now</a></p>
+            </form>
+        </section>
+        <!-- Copyright section -->
+        <section class="copy-section">
+            <p>&copy; 2023 SourceHub. All rights reserved.</p>
+        </section>
+    </main>
+</body>
+</html>

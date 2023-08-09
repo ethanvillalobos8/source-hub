@@ -59,7 +59,7 @@ nav {
     margin: 0 auto;
     background-color: #fdfdfd;
     padding: 20px; /* Reduced for mobile */
-    border-radius: 25px;
+    border-radius: 0px;
     box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
     position: absolute;
     top: 50%;
@@ -132,6 +132,7 @@ input[type="submit"]:hover {
     .login-box {
         width: 60%;
         padding: 30px;
+        border-radius: 25px;
     }
 
     form {
@@ -152,6 +153,7 @@ input[type="submit"]:hover {
     .login-box {
         width: 350px;
         padding: 40px;
+        border-radius: 25px;
     }
 
     form {

@@ -71,8 +71,12 @@ app.use(express.static('source'));
 // Stylesheets
 app.use(express.static('styles'));
 
+// Views
+app.use(express.static('views'));
+
 app.get('/', checkAuthenticated, (req, res) => {
-    res.render('index.ejs', { username: req.user.username });
+    // res.render('index.ejs', { username: req.user.username });
+    res.sendFile(path.join(__dirname, 'views', 'index.html'));
 });
 
 app.get('/login', checkNotAuthenticated, (req, res) => {

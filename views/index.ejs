@@ -1,32 +1,41 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
     <link rel="stylesheet" href="/home.css">
 </head>
 <body>
-    <h1 class="greeting">Hi <%= username %>!</h1>
-    <div id="links"></div>
-
-    <button id="addButton">+</button>
-    <p id="addLinks">Add Links</p>
-
-    <div id="popup" class="hidden">
-        <h2>Add a new link</h2>
-        <form id="linkForm">
-            <label for="linkName">Link Name:</label><br>
-            <input type="text" id="linkName" name="linkName"><br>
-            <label for="linkUrl">Link URL:</label><br>
-            <input type="text" id="linkUrl" name="linkUrl"><br>
-            <input type="submit" value="Add Link">
+    <nav>
+        <span class="brand">SourceHub</span>
+        <form action="/logout?_method=delete" method="post">
+            <input type="hidden" name="_method" value="DELETE">
+            <div class="username">
+                <p style="margin-right: 20px; margin-top: 30px; transform: translateY(50%);">@<%= username %></p>
+                <button class="logout-btn" type="submit">Logout</button>
+            </div>
         </form>
-    </div>
+    </nav>
 
-    <!-- Logout Button -->
-    <form action="/logout?_method=delete" method="post" style="position: absolute; top: 20px; right: 20px;">
-        <input type="hidden" name="_method" value="DELETE">
-        <button type="submit">Logout</button>
-    </form>
+    <main>
+        <div id="links"></div>
 
+        <button id="addButton">+</button>
+        <p id="addLinks">Add Links</p>
+
+        <div id="popup" class="hidden">
+            <span id="closePopup" class="close-btn">&times;</span>
+            <h2>Add a new link</h2>
+            <form id="linkForm">
+                <label for="linkName">Link Name:</label><br>
+                <input type="text" id="linkName" name="linkName" required><br>
+                <label for="linkUrl">Link URL:</label><br>
+                <input type="text" id="linkUrl" name="linkUrl" required><br>
+                <input type="submit" value="Add Link">
+            </form>
+        </div>
+    </main>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="../home.js"></script>
 </body>

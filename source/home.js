@@ -3,7 +3,7 @@ $(document).ready(function() {
     $.get('/get-links', function(links) {
         links.forEach(function(link) {
             const linkElement = $('<a href="' + link.url + '" target="_blank">' + link.name + '</a>');
-            const deleteButton = $('<button style="display: block; width: 35px; height: 35px; background-color: #f9f9f9; color: #c70000; border: none; border-radius: 25%; font-size: 1em; font-weight: bold; text-align: center; cursor: pointer; place-self: center;">' + 'X</button>');
+            const deleteButton = $('<button style="display: block; width: 35px; height: 35px; background-color: #e8ebff; color: #c70000; border: none; border-radius: 25%; font-size: 1em; font-weight: bold; text-align: center; cursor: pointer; place-self: center;">' + 'X</button>');
             deleteButton.click(function() {
                 $.ajax({
                     url: '/delete-link/' + link._id,
@@ -51,4 +51,10 @@ $(document).ready(function() {
             $('#linkForm')[0].reset();
         });
     });
+
+    $(document).ready(function() {
+        $('#closePopup').on('click', function() {
+            $('#popup').addClass('hidden');
+        });
+    });    
 });

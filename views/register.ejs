@@ -1,21 +1,42 @@
-<link rel="stylesheet" href="/register.css">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="/register.css">
+</head>
+<body>
+    <nav>
+        <span class="brand">SourceHub</span>
+        <a href="/login">
+            <button class="signup-btn">Login</button>
+        </a>        
+    </nav>
 
-<!-- Register HTML -->
-<h1>Register</h1>
-<form action="/register" method="post">
-    <div>
-        <label>Username:</label>
-        <input type="text" name="username" id="username" placeholder="Enter Username" required>
-    </div>
-    <div>
-        <label>Email:</label>
-        <input type="email" name="email" id="email" placeholder="Enter Email" required>
-    </div>
-    <div>
-        <label>Password:</label>
-        <input type="password" name="password" id="password" placeholder="Enter Password" required>
-    </div>
-
-    <input type="submit" value="Register">
-</form>
-<a href="/login">Login</a>
+    <main>
+        <section class="login-box">
+            <div class="login-message">
+                <h1>Register</h1>
+            </div>
+            <form action="/register" method="post">
+                <div>
+                    <input type="text" name="username" id="username" placeholder="Enter Username" required>
+                </div>
+                <div>
+                    <input type="email" name="email" id="email" placeholder="Enter Email" required>
+                </div>
+                <div>
+                    <input type="password" name="password" id="password" placeholder="Enter Password" required>
+                </div>
+                <input type="submit" value="Register">
+                <p style="font-size: small; padding-top: 15px;">Already have an account? <a href="/login" style="font-weight: bold;">Login Now</a></p>
+            </form>
+        </section>
+        <!-- Copyright section -->
+        <section class="copy-section">
+            <p>&copy; 2023 SourceHub. All rights reserved.</p>
+        </section>
+    </main>
+</body>
+</html>
